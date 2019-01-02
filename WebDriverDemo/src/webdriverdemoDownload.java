@@ -17,7 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class webdriverdemo {
+public class webdriverdemoDownload {
 	static String gmailURL = "https://mail.google.com/mail/u/0/h/1pq68r75kzvdr/?v%3Dlui";
 
 	public static void main(String[] args) {
@@ -39,6 +39,10 @@ public class webdriverdemo {
 //      options.addArguments("window-size=1200x600");
 //      options.addArguments("window-size=1000x800");
 		options.addArguments("window-size=1024x2000");
+		
+		File file = new File("input/Default");
+		String profilePath=file.getAbsolutePath();
+		options.addArguments("user-data-dir="+profilePath);
 
 		WebDriver driver = new ChromeDriver(options);
 
@@ -51,38 +55,15 @@ public class webdriverdemo {
 
 			String s = "", ss = "";
 
-			login(driver, s, ss);
-
-			int printNumberTable = printNumberTable(driver);
-			assert printNumberTable == 3;
-
-//			List<String> allHomes = getAllHOmesOptions(driver);
-
-			List<String> nextHomesToPrint = getOtherHomesOptions(driver);
-
 			
 			
+			String ld=
+			"(//*[@id=\"invoices\"]//div[@class=\"eon-table-content\"])[1]//span[@class=\"eon-icon download\"]";
 			
-			int i = 0;
-			boolean stillHaveHomesToPrint = false;
-			do {
-				// Print current home invoice
-				getInvoicePrint(driver, i);
-				if (i != 0) {
-					nextHomesToPrint.remove(0);
-				}
-				i++;
-				// Check if nay other and switch and repeat if neccesary
-				List<String> otherHomeOptions = getOtherHomesOptions(driver);
-
-				assert nextHomesToPrint.size() <= otherHomeOptions.size();
-				stillHaveHomesToPrint = !Collections.disjoint(nextHomesToPrint, otherHomeOptions);
-				if (stillHaveHomesToPrint) {
-					int optionIndex = otherHomeOptions.indexOf(nextHomesToPrint.get(0)) + 1;
-					// Switch home
-					switchTable(driver, optionIndex);
-				}
-			} while (stillHaveHomesToPrint);
+			driver.findElement(By.xpath(ld)).click();
+			
+			 ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+			 driver.switchTo().window(tabs2.get(1));
 			 
 
 				File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
