@@ -35,7 +35,7 @@ public class webdriverdemoDownload {
 		
 	
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("headless");
+//		options.addArguments("headless");
 //      options.addArguments("window-size=1200x600");
 //      options.addArguments("window-size=1000x800");
 		options.addArguments("window-size=1024x2000");
@@ -43,6 +43,10 @@ public class webdriverdemoDownload {
 		File file = new File("input/Default");
 		String profilePath=file.getAbsolutePath();
 		options.addArguments("user-data-dir="+profilePath);
+		
+//		chrome://settings/content/pdfDocuments
+//		//*[@id="labelWrapper"]/div[1]
+//		click
 
 		WebDriver driver = new ChromeDriver(options);
 
@@ -53,27 +57,27 @@ public class webdriverdemoDownload {
 			// Launch website
 			driver.navigate().to("https://myline-eon.ro/login");
 
-			String s = "", ss = "";
+			String s = "@gmail.com", ss = "";
 
-			
+			login(driver, s, ss);
 			
 			String ld=
 			"(//*[@id=\"invoices\"]//div[@class=\"eon-table-content\"])[1]//span[@class=\"eon-icon download\"]";
 			
 			driver.findElement(By.xpath(ld)).click();
 			
-			 ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
-			 driver.switchTo().window(tabs2.get(1));
+//			 ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+//			 driver.switchTo().window(tabs2.get(1));
 			 
 
-				File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		//Now you can do whatever you need to do with it, for example copy somewhere
-				try {
-					FileUtils.copyFile(scrFile, new File("output/screenshot" + 9 + ".png"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//		//Now you can do whatever you need to do with it, for example copy somewhere
+//				try {
+//					FileUtils.copyFile(scrFile, new File("output/screenshot" + 9 + ".png"));
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			 
 			 
 			//TODO: (//*[@id="invoices"]//div[@class="eon-table-content"])[1]//span[@class="eon-icon download"]
