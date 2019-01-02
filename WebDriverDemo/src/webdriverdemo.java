@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -21,9 +22,18 @@ public class webdriverdemo {
 
 	public static void main(String[] args) {
 		System.setProperty("webdriver.gecko.driver", "seleniumDrivers/geckodriver.exe");
-		System.setProperty("webdriver.chrome.driver", "seleniumDrivers/chromedriver.exe");
 		System.setProperty("webdriver.phantomjs.driver", "seleniumDrivers/phantomjs.exe");
 
+	
+		if(SystemUtils.IS_OS_WINDOWS) {
+		System.setProperty("webdriver.chrome.driver", "seleniumDrivers/chromedriver.exe");}
+		else if(SystemUtils.IS_OS_LINUX) {
+		System.setProperty("webdriver.chrome.driver", "seleniumDrivers/chromedriver");}
+		else {
+			//TODO: send error
+		}
+		
+	
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("headless");
 //      options.addArguments("window-size=1200x600");
